@@ -38,28 +38,29 @@ L <- 20 # define the computational domain [-L/2, L/2]
 n <- 128 #define the number of Fourier modes 2^n
 
 #x2 <- seq(from=-L/2, to = L/2, length.out = n+1) # define the domain discretization
-x2 <- seq(from=1, to = L, length.out = n+1)
+x2 <- seq(from= -L/2, to = L/2, length.out = n+1)
 
 x <- x2[1:n] # consider only the first n points: periodicity
 dx <- x[2]-x[1] #dx value needed for finite difference
 
-u <- acosh(x) # function to take a derivative of
+sech = function(a){ 1/cosh(a)}
+u <- sech(x) # function to take a derivative of
 ut <- fft(u) # FFT the function
 
 k <- (2*pi/L)*c(0:(n/2-1),(-n/2):-1) # k rescaled to 2*pi domain
 
 # FFT calculation of derivatives
-i <- 1i # in R, i is not defined directly the way of use is 0+1i
+i <- 0+1i # in R, i is not defined directly the way of use is 0+1i
 ut1 <- i*k *ut   # first derivative
 ut2 <- (i*k)^2 * ut # second derivative
 
-u1 <- Re(fft(ut1,inverse=T)) #inversing the transformation
-u2 <- Re(fft(ut2,inverse=T)) #inversing the transformation
+u1 <- Re(fft(ut1,inverse=T))/n #inversing the transformation
+u2 <- Re(fft(ut2,inverse=T))/n #inversing the transformation
 
-u1exact=-acosh(x)*tanh(x); #analytic first derivative
-u2exact=acosh(x)-2*acosh(x)^3; # analytic second derivative
+u1exact <- -sech(x)*tanh(x) #analytic first derivative
+u2exact <- sech(x)-2*sech(x)^3 # analytic second derivative
 
+plot(x,u1exact,type='l',col='red')
+points(x,u1,col='green')
 plot(x,u2exact,type='l',col='red')
 points(x,u2,col='green')
-
-
