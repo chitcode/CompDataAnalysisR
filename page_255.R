@@ -59,7 +59,7 @@ u2 <- Re(fft(ut2,inverse=T)) #inversing the transformation
 u1exact=-acosh(x)*tanh(x); #analytic first derivative
 u2exact=acosh(x)-2*acosh(x)^3; # analytic second derivative
 
-#plot(x,u1exact,type='l',col='red')
-plot(x,u1,col='green')
+plot(x,u2exact,type='l',col='red')
+points(x,u2,col='green')
 
 
