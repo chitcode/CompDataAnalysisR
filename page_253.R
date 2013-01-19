@@ -29,7 +29,6 @@ x <- x2[1:n] # consider only the first n points: periodicity
 u <- exp(-x^2) # function to take a derivative of
 ut <- fft(u) # FFT the function
 
-<<<<<<< HEAD
 plot(x,u,type='l',xlab='x',ylab='u=exp(-x^2)',main='initial Gaussian') #plot initial gaussian
 
 
@@ -42,7 +41,8 @@ plot(k,Re(ut), type="l", xlab="Frequencies", ylab="Re(fftshift(u)", main="Fourie
 
 #plotting the absolute values
 plot(k,abs(ut), type="l", xlab="Frequencies", ylab="Re(fftshift(u)", main="Fourier modes" )
-=======
+
+
 plot(x,u,type='l')
 plot(x,Re(ut),type='l')
->>>>>>> 528364c8b02ef8f3091145aa459bf9b89c02d8eb
+
